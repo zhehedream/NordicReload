@@ -1,0 +1,20 @@
+name: NordicReload
+main: eu.over9000.nordic.Nordic
+version: 0.1.0
+author: zhehe
+load: POSTWORLD
+api-version: 1.13
+description: Custom Worldgenerator
+commands:
+  nordic:
+    aliases: [n,nord, nrd]
+    description: Generates a new Nordic-World and ports you into it
+    usage: /<command> [world-name] [seed]
+permissions:
+  nordic.*:
+    description: Gives access to the /nordic command
+    children:
+      nordic.command: true
+  nordic.command:
+    default: op
+    description: gives acced to the /nordic command
