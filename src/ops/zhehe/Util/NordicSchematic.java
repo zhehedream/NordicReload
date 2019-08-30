@@ -109,7 +109,7 @@ public class NordicSchematic {
                         entity.add(et[num]);
                         
                     } else {
-                        bd[x][y][z] = createBlockData(tmp);
+                        bd[x][y][z] = createBlockData("minecraft:" + tmp);
                         if(y < ignore_layer && bd[x][y][z].getMaterial() == Material.AIR || bd[x][y][z].getMaterial() == Material.GRASS_BLOCK || bd[x][y][z].getMaterial() == Material.DIRT) bd[x][y][z] = null;
                     }
                 }
