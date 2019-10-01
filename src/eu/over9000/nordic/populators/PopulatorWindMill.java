@@ -6,6 +6,10 @@
 package eu.over9000.nordic.populators;
 
 import eu.over9000.nordic.Nordic;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import ops.zhehe.Util.NordicSchematic;
 import ops.zhehe.Util.Tools;
@@ -15,15 +19,56 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.generator.BlockPopulator;
+import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  *
- * @author zhiqiang.hao
+ * @author zhehe
  */
 public class PopulatorWindMill extends BlockPopulator {
     
     private static NordicSchematic[] windmill = null;
     private Nordic plugin;
+    
+    private static class Node {
+            public int x, z;
+            public Node(int x, int z) {
+                this.x = x;
+                this.z = z;
+            }
+        }
+        
+        private final static int DISTANCE = 10;
+        private final static int MAX_SIZE = 8;
+        
+        private final static Map<String, List<Node>> dict = new HashMap<>();
+        
+        private boolean isValid(World world, int chunkX, int chunkZ) {
+            synchronized(dict) {
+                String name = world.getName();
+                if(dict.get(name) == null) {
+                    List<Node> l = new ArrayList<>();
+                    l.add(new Node(chunkX, chunkZ));
+                    dict.put(name, l);
+                    return true;
+                }
+                List<Node> list = dict.get(name);
+                for(Node n : list) {
+                    int dx = chunkX - n.x;
+                    int dz = chunkZ - n.z;
+                    dx = dx > 0 ? dx : -dx;
+                    dz = dz > 0 ? dz : -dz;
+                    int dis = dx + dz;
+                    
+                    if(dis < DISTANCE) return false;
+                }
+                list.add(new Node(chunkX, chunkZ));
+                if(list.size() > MAX_SIZE) {
+                    list.remove(0);
+                }
+                return true;
+            }
+        }
     
     public PopulatorWindMill(Nordic p) {
         plugin = p;
@@ -42,7 +87,20 @@ public class PopulatorWindMill extends BlockPopulator {
     
     @Override
     public void populate(final World world, final Random random, final Chunk source) {
-        if (random.nextInt(2000) < 10) {
+        if(random.nextInt(2000) >= 10) return;
+        if(!isValid(world, source.getX(), source.getZ())) return;
+        BukkitRunnable run = new BukkitRunnable() {
+            @Override
+            public void run() {
+                place(world, random, source);
+                this.cancel();
+            }
+        };
+        run.runTaskTimer(Nordic.instance, 1, 1);
+    }
+    
+    private void place(final World world, final Random random, final Chunk source) {
+        if (true) {
             int x = random.nextInt(15);
             int z = random.nextInt(15);
             int realx = source.getX() * 16 + x;

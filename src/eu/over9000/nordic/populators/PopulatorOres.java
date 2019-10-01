@@ -36,7 +36,9 @@ import java.util.Random;
 public class PopulatorOres extends BlockPopulator {
 	private static final int[] iterations = new int[]{10, 16, 20, 20, 2, 8, 1, 1, 1};
 	private static final int[] amount = new int[]{32, 32, 16, 8, 8, 7, 7, 6};
-	private static final Material[] type = new Material[]{Material.GRAVEL, Material.SAND, Material.COAL_ORE, Material.IRON_ORE, Material.GOLD_ORE, Material.REDSTONE_ORE, Material.DIAMOND_ORE, Material.LAPIS_ORE};
+	private static final Material[] type = new Material[]{Material.GRAVEL,
+            Material.SAND, Material.COAL_ORE, Material.IRON_ORE, Material.GOLD_ORE,
+            Material.REDSTONE_ORE, Material.DIAMOND_ORE, Material.LAPIS_ORE};
 	private static final int[] maxHeight = new int[]{128, 45, 128, 128, 32, 32, 32, 32, 16, 16, 32};
 
 	/**

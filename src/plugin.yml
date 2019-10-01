@@ -1,11 +1,11 @@
 name: NordicReload
 main: eu.over9000.nordic.Nordic
-version: 0.2.0
+version: 0.8.0
 load: STARTUP
 loadbefore: [Multiverse-Core, dimension-door, multiworld]
 author: zhehe
 api-version: 1.13
-description: Custom Worldgenerator
+description: Nordic like world generator
 commands:
   nordic:
     aliases: [n,nord, nrd]

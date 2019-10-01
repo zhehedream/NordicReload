@@ -37,12 +37,12 @@ public class PopulatorFlowers extends BlockPopulator {
 		final int chance = random.nextInt(100);
 		if (chance < 10) {
 			final int flowercount = random.nextInt(3) + 2;
-			final int type = random.nextInt(300);
+			final int type = random.nextInt(270);
                         final int choose = random.nextInt(2);
                         if(choose == 1) {
                             for (int t = 0; t <= flowercount; t++) {
-                                    final int flower_x = random.nextInt(15);
-                                    final int flower_z = random.nextInt(15);
+                                    final int flower_x = 1 + random.nextInt(14);
+                                    final int flower_z = 1 + random.nextInt(14);
 
                                     final Block handle = world.getBlockAt(flower_x + source.getX() * 16, world.getHighestBlockYAt(flower_x + source.getX() * 16, flower_z + source.getZ() * 16), flower_z + source.getZ() * 16);
                                     if (handle.getRelative(BlockFace.DOWN).getType().equals(Material.GRASS_BLOCK)) {
@@ -64,8 +64,14 @@ public class PopulatorFlowers extends BlockPopulator {
                                                 handle.setType(Material.WHITE_TULIP);
                                             } else if(type < 190) {
                                                 handle.setType(Material.PINK_TULIP);
-                                            } else {
+                                            } else if(type < 200) {
                                                 handle.setType(Material.OXEYE_DAISY);
+                                            } else if(type < 220) {
+                                                handle.setType(Material.LILY_OF_THE_VALLEY);
+                                            } else if(type < 240) {
+                                                handle.setType(Material.CORNFLOWER);
+                                            } else {
+                                                handle.setType(Material.SWEET_BERRY_BUSH);
                                             }
                                     }
                             }
@@ -76,7 +82,7 @@ public class PopulatorFlowers extends BlockPopulator {
 
                                     Block handle = world.getBlockAt(flower_x + source.getX() * 16, world.getHighestBlockYAt(flower_x + source.getX() * 16, flower_z + source.getZ() * 16), flower_z + source.getZ() * 16);
                                     if (handle.getRelative(BlockFace.DOWN).getType().equals(Material.GRASS_BLOCK)) {
-                                        if(type < 40) {
+                                        if(type < 50) {
                                             BlockData data = createBlockData(Material.SUNFLOWER);
                                             ((Bisected)data).setHalf(Bisected.Half.BOTTOM);
                                             handle.setBlockData(data, false);
@@ -85,7 +91,7 @@ public class PopulatorFlowers extends BlockPopulator {
                                             data = createBlockData(Material.SUNFLOWER);
                                             ((Bisected)data).setHalf(Bisected.Half.TOP);
                                             handle.setBlockData(data, false);
-                                        } else if(type < 80) {
+                                        } else if(type < 100) {
                                             BlockData data = createBlockData(Material.LILAC);
                                             ((Bisected)data).setHalf(Bisected.Half.BOTTOM);
                                             handle.setBlockData(data, false);
@@ -94,7 +100,7 @@ public class PopulatorFlowers extends BlockPopulator {
                                             data = createBlockData(Material.LILAC);
                                             ((Bisected)data).setHalf(Bisected.Half.TOP);
                                             handle.setBlockData(data, false);
-                                        } else if(type < 120) {
+                                        } else if(type < 150) {
                                             BlockData data = createBlockData(Material.LARGE_FERN);
                                             ((Bisected)data).setHalf(Bisected.Half.BOTTOM);
                                             handle.setBlockData(data, false);
@@ -103,7 +109,7 @@ public class PopulatorFlowers extends BlockPopulator {
                                             data = createBlockData(Material.LARGE_FERN);
                                             ((Bisected)data).setHalf(Bisected.Half.TOP);
                                             handle.setBlockData(data, false);
-                                        } else if(type < 160) {
+                                        } else if(type < 200) {
                                             BlockData data = createBlockData(Material.ROSE_BUSH);
                                             ((Bisected)data).setHalf(Bisected.Half.BOTTOM);
                                             handle.setBlockData(data, false);

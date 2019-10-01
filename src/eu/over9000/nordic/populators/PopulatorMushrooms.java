@@ -42,11 +42,10 @@ public class PopulatorMushrooms extends BlockPopulator {
 			}
 			final int mushroomcount = random.nextInt(3) + 2;
 			int placed = 0;
-			for (int t = 0; t <= mushroomcount; t++) {
-				for (int flower_x = 0; flower_x < 16; flower_x++) {
-					for (int flower_z = 0; flower_z < 16; flower_z++) {
+				for (int flower_x = 1; flower_x < 15; flower_x++) {
+					for (int flower_z = 1; flower_z < 15; flower_z++) {
 						final Block handle = world.getBlockAt(flower_x + source.getX() * 16, getHighestEmptyBlockYAtIgnoreTreesAndFoliage(world, flower_x + source.getX() * 16, flower_z + source.getZ() * 16), flower_z + source.getZ() * 16);
-						if (handle.getRelative(BlockFace.DOWN).getType().equals(Material.GRASS_BLOCK) && isRelativeTo(handle, Material.SPRUCE_LOG) && handle.isEmpty()) {
+						if (handle.getRelative(BlockFace.DOWN).getType().equals(Material.GRASS_BLOCK) && handle.isEmpty()) {
 							handle.setType(mushroom);
 							placed++;
 							if (placed >= mushroomcount) {
@@ -55,7 +54,6 @@ public class PopulatorMushrooms extends BlockPopulator {
 						}
 					}
 				}
-			}
 		}
 	}
 
@@ -69,16 +67,11 @@ public class PopulatorMushrooms extends BlockPopulator {
 	}
 
 	private int getHighestEmptyBlockYAtIgnoreTreesAndFoliage(final World w, final int x, final int z) {
-		for (int y = w.getMaxHeight(); y >= 1; y--) {
+		for (int y = w.getHighestBlockYAt(x, z); y >= 1; y--) {
 			final Block handle = w.getBlockAt(x, y - 1, z);
 			final Material id = handle.getType();
-			if (id != Material.AIR && id != Material.OAK_LOG
-                                && id != Material.BIRCH_LOG && id != Material.JUNGLE_LOG
-                                && id != Material.SPRUCE_LOG && id != Material.DARK_OAK_LOG
-                                && id != Material.ACACIA_LOG && id != Material.OAK_LEAVES
-                                && id != Material.BIRCH_LEAVES && id != Material.JUNGLE_LEAVES
-                                && id != Material.SPRUCE_LEAVES && id != Material.DARK_OAK_LEAVES
-                                && id != Material.ACACIA_LEAVES) {
+			if (id != Material.AIR && id != Material.SPRUCE_LOG
+                                && id != Material.SPRUCE_LEAVES) {
 				return y;
 			}
 		}

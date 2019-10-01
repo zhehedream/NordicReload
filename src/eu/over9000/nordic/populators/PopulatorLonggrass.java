@@ -35,8 +35,8 @@ public class PopulatorLonggrass extends BlockPopulator {
 
 	@Override
 	public void populate(final World world, final Random random, final Chunk source) {
-		for (int x = 0; x < 16; x++) {
-			for (int z = 0; z < 16; z++) {
+		for (int x = 1; x < 15; x++) {
+			for (int z = 1; z < 15; z++) {
 				final int chance = random.nextInt(100);
 				if (chance < 33) {
 					Block handle = world.getHighestBlockAt(x + source.getX() * 16, z + source.getZ() * 16);

@@ -32,8 +32,8 @@ public class PopulatorTrees extends BlockPopulator {
 		final int treecount = random.nextInt(3);
 
 		for (int t = 0; t <= treecount; t++) {
-			final int tree_x = random.nextInt(15);
-			final int tree_z = random.nextInt(15);
+			final int tree_x = 4 + random.nextInt(8);
+			final int tree_z = 4 + random.nextInt(8);
 
 			final Block block = world.getHighestBlockAt(tree_x + source.getX() * 16, tree_z + source.getZ() * 16);
 			final Location high = block.getLocation();

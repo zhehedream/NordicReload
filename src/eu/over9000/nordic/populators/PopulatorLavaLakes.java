@@ -74,7 +74,7 @@ public class PopulatorLavaLakes extends BlockPopulator {
 		// Ensure it's not air or liquid already
 		lakeBlocks.stream().filter(block -> !block.isEmpty() && !block.isLiquid()).forEach(block -> {
 			if (block.getY() >= ry) {
-				block.setType(Material.AIR);
+				block.setType(Material.AIR, false);
 			} else {
 				block.setType(solidMaterial);
 			}

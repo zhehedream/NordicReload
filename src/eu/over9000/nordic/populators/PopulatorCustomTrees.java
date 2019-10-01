@@ -44,8 +44,8 @@ public class PopulatorCustomTrees extends BlockPopulator {
 	public void populate(final World world, final Random random, final Chunk source) {
 
 		if (random.nextInt(100) < 2) {
-			final int x = 4 + random.nextInt(8) + source.getX() * 16;
-			final int z = 4 + random.nextInt(8) + source.getZ() * 16;
+			final int x = 5 + random.nextInt(6) + source.getX() * 16;
+			final int z = 5 + random.nextInt(6) + source.getZ() * 16;
 			final Block high = world.getHighestBlockAt(x, z);
 			if (!high.getRelative(BlockFace.DOWN).getType().equals(Material.GRASS_BLOCK)) {
 				return;
@@ -56,9 +56,9 @@ public class PopulatorCustomTrees extends BlockPopulator {
 			}
 			final Set<XYZ> snake = selectBlocksForTree(world, random, x, maxY - 5, z);
 			buildTree(world, snake.toArray(new XYZ[snake.size()]));
-			for (final XYZ block : snake) {
-				world.unloadChunkRequest(block.x / 16, block.z / 16);
-			}
+//			for (final XYZ block : snake) {
+//				world.unloadChunkRequest(block.x / 16, block.z / 16);
+//			}
 		}
 	}
 
@@ -103,11 +103,11 @@ public class PopulatorCustomTrees extends BlockPopulator {
 		for (final XYZ loc : snakeBlocks) {
 			final Block block = world.getBlockAt(loc.x, loc.y, loc.z);
 			if (block.isEmpty() && !block.isLiquid() && block.getType() != Material.BEDROCK) {
-				if (slices.containsKey(Integer.valueOf(loc.y))) {
-					slices.get(Integer.valueOf(loc.y)).add(block);
+				if (slices.containsKey(loc.y)) {
+					slices.get(loc.y).add(block);
 				} else {
-					slices.put(Integer.valueOf(loc.y), new ArrayList<>());
-					slices.get(Integer.valueOf(loc.y)).add(block);
+					slices.put(loc.y, new ArrayList<>());
+					slices.get(loc.y).add(block);
 				}
 			}
 		}

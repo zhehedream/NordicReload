@@ -20,6 +20,7 @@ package eu.over9000.nordic;
 
 import eu.over9000.nordic.noise.Voronoi;
 import eu.over9000.nordic.noise.Voronoi.DistanceMetric;
+import java.util.ArrayList;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
@@ -29,6 +30,9 @@ import org.bukkit.util.noise.SimplexOctaveGenerator;
 
 import java.util.List;
 import java.util.Random;
+import me.zhehe.nordic.NordicPopulator;
+import me.zhehe.nordic.WorldGenBaseOld;
+import me.zhehe.nordic.WorldGenCavesOld;
 
 /**
  * The ChunkGenerator of this Plugin
@@ -58,6 +62,8 @@ public class NordicChunkGenerator extends ChunkGenerator {
 
 		this.usedSeed = 1337L;
 		this.populators = populators;
+//                this.populators = new ArrayList<>();
+//                this.populators.add(new NordicPopulator());
 
 		changeSeed(usedSeed);
 	}
@@ -141,8 +147,17 @@ public class NordicChunkGenerator extends ChunkGenerator {
 				// ##############################
 			}
 		}
+                generateCaves(world, chunkx, chunkz, result);
+//                result.setBlock(1, 0, 1, Material.GLASS);
 		return result;
 	}
+        
+        private WorldGenBaseOld caves = null;
+        
+        public void generateCaves(World world, int x, int z, ChunkGenerator.ChunkData data) {
+            if(caves == null) caves = new WorldGenCavesOld();
+            caves.generate(world, x, z, data);
+        }
 
 	/**
 	 * Writes the Value from the heightmap to the Chunk byte array
@@ -263,9 +278,10 @@ public class NordicChunkGenerator extends ChunkGenerator {
 			if (getMaterialAt(chunk_data, x, y, z) == Material.AIR) {
 				setMaterialAt(chunk_data, x, y, z, Material.WATER);
                                 biomes.setBiome(x, z, Biome.COLD_OCEAN);
-			}
+			} else break;
 			y--;
 		}
+                setMaterialAt(chunk_data, x, y, z, Material.GRAVEL);
 	}
 
 	@Override

@@ -1,0 +1,54 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package me.zhehe.nordic;
+
+@SuppressWarnings("cast")
+public class MathHelper {
+
+    public static final float PI = 3.1415927F;
+    private static float SIN_TABLE[];
+
+    static {
+        SIN_TABLE = new float[0x10000];
+        for(int i = 0; i < 0x10000; i++) {
+            SIN_TABLE[i] = (float)Math.sin((i * Math.PI * 2D) / 65536D);
+        }
+    }
+
+    public static float sin(float f) {
+        return SIN_TABLE[(int)(f * 10430.38F) & 0xffff];
+    }
+
+    public static float cos(float f) {
+        return SIN_TABLE[(int)(f * 10430.38F + 16384F) & 0xffff];
+    }
+
+    public static float sqrt(float f) {
+        return (float)Math.sqrt(f);
+    }
+
+    public static float sqrt(double d) {
+        return (float)Math.sqrt(d);
+    }
+
+    public static int floor(float f) {
+        int i = (int)f;
+        return f >= (float)i ? i : i - 1;
+    }
+
+    public static int floor(double d) {
+        int i = (int)d;
+        return d >= (double)i ? i : i - 1;
+    }
+
+    public static float abs(float f) {
+        return f < 0.0F ? -f : f;
+    }
+
+    public static double clamp(double f, double f1, double f2) {
+        return f < f1 ? f1 : (f > f2 ? f2 : f);
+    }
+}

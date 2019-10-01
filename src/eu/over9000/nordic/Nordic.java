@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Logger;
+import me.zhehe.nordic.Config;
 
 /**
  * Main class of Nordic
@@ -46,7 +47,9 @@ public class Nordic extends JavaPlugin {
 
 	private static final String DEFAULT_WORLD_NAME = "world_nordic";
 	private static final String WORLD_PREFIX = "world_";
-	private final List<BlockPopulator> populators = buildPopulators(this);
+	public static List<BlockPopulator> populators;
+        
+        public static Nordic instance;
 
 	@Override
 	public void onDisable() {
@@ -54,6 +57,9 @@ public class Nordic extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+                instance = this;
+                Config.reload(this);
+                populators = buildPopulators(this);
 		wgen = new NordicChunkGenerator(populators);
 	}
 
@@ -114,11 +120,12 @@ public class Nordic extends JavaPlugin {
 	private static List<BlockPopulator> buildPopulators(Nordic plugin) {
 		final ArrayList<BlockPopulator> populators = new ArrayList<>();
 		populators.add(new PopulatorLakes());
-		populators.add(new PopulatorGravel());
-		populators.add(new PopulatorLavaLakes());
-		populators.add(new PopulatorCaves());
+//		populators.add(new PopulatorGravel());
+//		populators.add(new PopulatorLavaLakes());
+//		populators.add(new PopulatorCaves());
 		populators.add(new PopulatorOres());
-                populators.add(new PopulatorWindMill(plugin));
+                if(Config.generateWindMill()) populators.add(new PopulatorWindMill(plugin));
+                populators.add(new PopulatorBoat(plugin));
 		populators.add(new PopulatorCustomTrees());
 		populators.add(new PopulatorTrees());
 		populators.add(new PopulatorFlowers());

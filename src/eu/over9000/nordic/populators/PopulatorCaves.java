@@ -138,7 +138,7 @@ public class PopulatorCaves extends BlockPopulator {
 		for (final XYZ loc : snakeBlocks) {
 			final Block block = world.getBlockAt(loc.x, loc.y, loc.z);
 			if (!block.isEmpty() && !block.isLiquid() && block.getType() != Material.BEDROCK) {
-				block.setType(Material.AIR);
+				block.setType(Material.AIR, false);
 			}
 		}
 	}
